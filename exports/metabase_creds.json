@@ -1,0 +1,17 @@
+{
+  "url": "http://localhost:3000",
+  "email": "capstone@example.com",
+  "password": "Capstone123!",
+  "card_ids": [
+    40,
+    41,
+    42,
+    43
+  ],
+  "card_names": [
+    "Q1 - Revenue per Month",
+    "Q2 - Average Revenue per Weekday",
+    "Q3 - Top 5 Customers (June 2022)",
+    "Q4 - Unique Customers per Month"
+  ]
+}
