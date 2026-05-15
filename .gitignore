@@ -1,0 +1,49 @@
+# Credentials - NEVER commit these
+*.json
+credentials/
+/credentials
+sa-key*
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+*.ipynb
+
+# Environment
+.env
+.env.*
+.venv/
+venv/
+
+# IDE / tooling
+.idea/
+.vscode/
+*.swp
+.claude/
+.deepeval/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Data exports
+*.csv
+*.parquet
+exports/
+
+# Course resources (not part of submission)
+Capstone Project Resources-20260410/
+Capstone Project Instructions.pdf
+
+# Local screenshots / vizzes (keep out unless explicitly added)
+*.twbx
+*.twb

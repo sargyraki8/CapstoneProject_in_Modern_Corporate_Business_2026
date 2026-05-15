@@ -1,0 +1,74 @@
+Capstone Project - Answers
+==========================
+
+Q1: Using rep_revenue_per_period - What's the % diff between May '22 and June '22?
+
+SQL to compute:
+SELECT
+  MAX(CASE WHEN reporting_date = '2022-05-01' THEN total_revenue END) AS may_revenue,
+  MAX(CASE WHEN reporting_date = '2022-06-01' THEN total_revenue END) AS june_revenue,
+  ROUND(
+    (MAX(CASE WHEN reporting_date = '2022-06-01' THEN total_revenue END) -
+     MAX(CASE WHEN reporting_date = '2022-05-01' THEN total_revenue END)) /
+    MAX(CASE WHEN reporting_date = '2022-05-01' THEN total_revenue END) * 100
+  , 2) AS pct_diff
+FROM `capstoneproject-493015.reporting_db.rep_revenue_per_period`
+WHERE reporting_period = 'Month'
+  AND reporting_date IN ('2022-05-01', '2022-06-01');
+
+A1: June 2022 revenue ($9,592.94) was 99.54% higher than May 2022 revenue ($4,807.46).
+
+
+Q2: Using rep_revenue_per_period - What's the weekday with the highest average revenue?
+
+SQL to compute:
+SELECT
+  FORMAT_DATE('%A', reporting_date) AS weekday_name,
+  EXTRACT(DAYOFWEEK FROM reporting_date) AS weekday_num,
+  ROUND(AVG(total_revenue), 2) AS avg_revenue
+FROM `capstoneproject-493015.reporting_db.rep_revenue_per_period`
+WHERE reporting_period = 'Day'
+  AND total_revenue > 0
+GROUP BY 1, 2
+ORDER BY avg_revenue DESC
+LIMIT 1;
+
+A2: Sunday, with an average daily revenue of $1,961.94.
+
+
+Q3: Using rep_revenue_per_customer_and_period - Which are the top 5 customers by revenue for June 2022?
+
+SQL to compute:
+SELECT
+  customer_id,
+  total_revenue
+FROM `capstoneproject-493015.reporting_db.rep_revenue_per_customer_and_period`
+WHERE reporting_period = 'Month'
+  AND reporting_date = '2022-06-01'
+ORDER BY total_revenue DESC
+LIMIT 5;
+
+A3: Top 5 customers by revenue for June 2022:
+    1. customer_id 454 — $52.90
+    2. customer_id 178 — $44.92
+    3. customer_id 176 — $42.92
+    4. customer_id  26 — $41.93
+    5. customer_id 526 — $41.91
+
+
+Q4: Using rep_revenue_per_customer_and_period - Which is the month with the most unique customers?
+
+SQL to compute:
+SELECT
+  reporting_date,
+  COUNT(DISTINCT customer_id) AS unique_customers
+FROM `capstoneproject-493015.reporting_db.rep_revenue_per_customer_and_period`
+WHERE reporting_period = 'Month'
+  AND total_revenue > 0
+GROUP BY reporting_date
+ORDER BY unique_customers DESC
+LIMIT 1;
+
+A4: July 2022 and August 2022 are tied with 599 unique paying customers each
+    (the full customer base). If a single month is required, August 2022 is the
+    most recent of the tied months.
