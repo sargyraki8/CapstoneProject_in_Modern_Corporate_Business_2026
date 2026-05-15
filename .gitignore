@@ -36,7 +36,6 @@ desktop.ini
 *.log
 
 # Data exports
-*.csv
 *.parquet
 exports/
 
